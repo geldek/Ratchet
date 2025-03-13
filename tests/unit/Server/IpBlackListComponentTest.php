@@ -3,6 +3,7 @@ namespace Ratchet\Server;
 use Ratchet\Server\IpBlackList;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(IpBlackList::class)]
 class IpBlackListComponentTest extends TestCase {
@@ -96,7 +97,7 @@ class IpBlackListComponentTest extends TestCase {
         $this->blocker->onError($conn, $e);
     }
 
-    public function addressProvider() {
+    public static function addressProvider() {
         return array(
             array('127.0.0.1', '127.0.0.1')
           , array('localhost', 'localhost')
@@ -105,9 +106,7 @@ class IpBlackListComponentTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider addressProvider
-     */
+    #[DataProvider('addressProvider')]
     public function testFilterAddress($expected, $input) {
         $this->assertEquals($expected, $this->blocker->filterAddress($input));
     }

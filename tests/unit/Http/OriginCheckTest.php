@@ -9,7 +9,7 @@ class OriginCheckTest extends AbstractMessageComponentTestCase {
 
     public function setUp(): void {
         $this->_reqStub = $this->createMock('Psr\Http\Message\RequestInterface');
-        $this->_reqStub->expects($this->any())->method('getHeader')->will($this->returnValue(['localhost']));
+        $this->_reqStub->expects($this->any())->method('getHeader')->willReturn(['localhost']);
 
         parent::setUp();
 

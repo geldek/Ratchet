@@ -3,6 +3,7 @@ namespace Ratchet\Http;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(HttpRequestParser::class)]
 class HttpRequestParserTest extends TestCase {
@@ -12,7 +13,7 @@ class HttpRequestParserTest extends TestCase {
         $this->parser = new HttpRequestParser;
     }
 
-    public function headersProvider() {
+    public static function headersProvider() {
         return array(
             array(false, "GET / HTTP/1.1\r\nHost: socketo.me\r\n")
           , array(true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n")
@@ -23,9 +24,7 @@ class HttpRequestParserTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider headersProvider
-     */
+    #[DataProvider('headersProvider')]
     public function testIsEom($expected, $message) {
         $this->assertEquals($expected, $this->parser->isEom($message));
     }

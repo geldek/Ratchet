@@ -3,6 +3,7 @@ namespace Ratchet\Application\Server;
 use Ratchet\Server\FlashPolicy;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(FlashPolicy::class)]
 class FlashPolicyComponentTest extends TestCase {
@@ -33,9 +34,7 @@ class FlashPolicyComponentTest extends TestCase {
         $this->_policy->renderPolicy();
     }
 
-    /**
-     * @dataProvider siteControl
-     */
+    #[DataProvider('siteControl')]
     public function testSiteControlValidation($accept, $permittedCrossDomainPolicies) {
         $this->assertEquals($accept, $this->_policy->validateSiteControl($permittedCrossDomainPolicies));
     }
@@ -55,9 +54,7 @@ class FlashPolicyComponentTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider URI
-     */
+    #[DataProvider('URI')]
     public function testDomainValidation($accept, $domain) {
         $this->assertEquals($accept, $this->_policy->validateDomain($domain));
     }
@@ -84,9 +81,7 @@ class FlashPolicyComponentTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider ports
-     */
+    #[DataProvider('ports')]
     public function testPortValidation($accept, $ports) {
         $this->assertEquals($accept, $this->_policy->validatePorts($ports));
     }

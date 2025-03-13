@@ -3,6 +3,7 @@ namespace Ratchet\Wamp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(TopicManager::class)]
 class TopicManagerTest extends TestCase {
@@ -19,7 +20,7 @@ class TopicManagerTest extends TestCase {
     private $conn;
 
     public function setUp(): void {
-        $this->conn = $this->createMock('\Ratchet\ConnectionInterface');
+        $this->conn = $this->createMock('\Ratchet\Wamp\WampConnection');
         $this->mock = $this->createMock('\Ratchet\Wamp\WampServerInterface');
         $this->mngr = new TopicManager($this->mock);
 
@@ -192,9 +193,7 @@ class TopicManagerTest extends TestCase {
         ];
     }
 
-    /**
-     * @dataProvider topicConnExpectationProvider
-     */
+    #[DataProvider('topicConnExpectationProvider')]
     public function testTopicRetentionFromLeavingConnections($methodCall, $expectation) {
         $topicName = 'checkTopic';
         list($topic, $attribute) = $this->topicProvider($topicName);
@@ -219,7 +218,7 @@ class TopicManagerTest extends TestCase {
     public function testGetSubProtocolsBubbles() {
         $subs = array('hello', 'world');
         $app  = $this->createMock('Ratchet\Wamp\Stub\WsWampServerInterface');
-        $app->expects($this->once())->method('getSubProtocols')->will($this->returnValue($subs));
+        $app->expects($this->once())->method('getSubProtocols')->willReturn($subs);
         $mngr = new TopicManager($app);
 
         $this->assertEquals($subs, $mngr->getSubProtocols());

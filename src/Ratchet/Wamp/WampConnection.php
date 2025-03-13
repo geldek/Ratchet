@@ -13,6 +13,8 @@ class WampConnection extends AbstractConnectionDecorator {
     /**
      * {@inheritdoc}
      */
+    public \StdClass $WAMP;
+
     public function __construct(ConnectionInterface $conn) {
         parent::__construct($conn);
 

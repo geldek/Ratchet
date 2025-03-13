@@ -4,6 +4,7 @@ use Ratchet\Mock\Connection;
 use Ratchet\Mock\WampComponent as TestComponent;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(ServerProtocol::class)]
 #[CoversClass(WampServerInterface::class)]
@@ -22,7 +23,7 @@ class ServerProtocolTest extends TestCase {
         return new Connection;
     }
 
-    public function invalidMessageProvider() {
+    public static function invalidMessageProvider() {
         return [
             [0]
           , [3]
@@ -32,9 +33,7 @@ class ServerProtocolTest extends TestCase {
         ];
     }
 
-    /**
-     * @dataProvider invalidMessageProvider
-     */
+    #[DataProvider('invalidMessageProvider')]
     public function testInvalidMessages($type) {
         $this->expectException('\Ratchet\Wamp\Exception');
 
@@ -81,7 +80,7 @@ class ServerProtocolTest extends TestCase {
         $this->assertEquals($uri, $this->_app->last['onUnSubscribe'][1]);
     }
 
-    public function callProvider() {
+    public static function callProvider() {
         return [
             [2, 'a', 'b']
           , [2, ['a', 'b']]
@@ -94,9 +93,7 @@ class ServerProtocolTest extends TestCase {
         ];
     }
 
-    /**
-     * @dataProvider callProvider
-     */
+    #[DataProvider('callProvider')]
     public function testCall() {
         $args     = func_get_args();
         $paramNum = array_shift($args);
@@ -155,16 +152,14 @@ class ServerProtocolTest extends TestCase {
         $this->assertEquals(2, count($this->_app->last['onPublish'][4]));
     }
 
-    public function eventProvider() {
+    public static function eventProvider() {
         return array(
             array('http://example.com', array('one', 'two'))
           , array('curie', array(array('hello' => 'world', 'herp' => 'derp')))
         );
     }
 
-    /**
-     * @dataProvider eventProvider
-     */
+    #[DataProvider('eventProvider')]
     public function testEvent($topic, $payload) {
         $conn = new WampConnection($this->newConn());
         $conn->event($topic, $payload);
@@ -247,7 +242,7 @@ class ServerProtocolTest extends TestCase {
         $this->assertContains('wamp', $wamp->getSubProtocols());
     }
 
-    public function badFormatProvider() {
+    public static function badFormatProvider() {
         return array(
             array(json_encode(true))
           , array('{"valid":"json", "invalid": "message"}')
@@ -255,9 +250,7 @@ class ServerProtocolTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider badFormatProvider
-     */
+    #[DataProvider('badFormatProvider')]
     public function testValidJsonButInvalidProtocol($message) {
         $this->expectException('\Ratchet\Wamp\Exception');
 

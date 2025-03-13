@@ -2,6 +2,7 @@
 namespace Ratchet\Session\Serialize;
 use Ratchet\Session\Serialize\PhpHandler;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(PhpHandler::class)]
@@ -12,7 +13,7 @@ class PhpHandlerTest extends TestCase {
         $this->_handler = new PhpHandler;
     }
 
-    public function serializedProvider() {
+    public static function serializedProvider() {
         return array(
             array(
                 '_sf2_attributes|a:2:{s:5:"hello";s:5:"world";s:4:"last";i:1332872102;}_sf2_flashes|a:0:{}'
@@ -27,16 +28,12 @@ class PhpHandlerTest extends TestCase {
         );
     }
 
-    /**
-     * @dataProvider serializedProvider
-     */
+    #[DataProvider('serializedProvider')]
     public function testUnserialize($in, $expected) {
         $this->assertEquals($expected, $this->_handler->unserialize($in));
     }
 
-    /**
-     * @dataProvider serializedProvider
-     */
+    #[DataProvider('serializedProvider')]
     public function testSerialize($serialized, $original) {
         $this->assertEquals($serialized, $this->_handler->serialize($original));
     }

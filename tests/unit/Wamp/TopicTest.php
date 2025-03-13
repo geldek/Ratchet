@@ -39,11 +39,16 @@ class TopicTest extends TestCase {
     public function testBroadcast() {
         $msg  = 'Hello World!';
         $name = 'Batman';
+        $wamp = new \stdClass();
+        $wamp->sessionId = '123';
+        $wamp->prefixes = array();
         $protocol = json_encode(array(8, $name, $msg));
 
         $first = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
         $second = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
 
+        $first->WAMP = $wamp;
+        $second->WAMP = $wamp;
         $first->expects($this->once())
               ->method('send')
               ->with($this->equalTo($protocol));
@@ -63,11 +68,17 @@ class TopicTest extends TestCase {
         $msg  = 'Hello odd numbers';
         $name = 'Excluding';
         $protocol = json_encode(array(8, $name, $msg));
+        $wamp = new \stdClass();
+        $wamp->sessionId = '123';
+        $wamp->prefixes = array();
 
         $first = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
         $second = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
         $third = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
 
+        $first->WAMP = $wamp;
+        $second->WAMP = $wamp;
+        $third->WAMP = $wamp;
         $first->expects($this->once())
             ->method('send')
             ->with($this->equalTo($protocol));
@@ -90,10 +101,17 @@ class TopicTest extends TestCase {
         $msg  = 'Hello white list';
         $name = 'Eligible';
         $protocol = json_encode(array(8, $name, $msg));
+        $wamp = new \stdClass();
+        $wamp->sessionId = '123';
+        $wamp->prefixes = array();
 
         $first = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
         $second = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
         $third = $this->createPartialMock('Ratchet\\Wamp\\WampConnection', array('send'));
+
+        $first->WAMP = $wamp;
+        $second->WAMP = $wamp;
+        $third->WAMP = $wamp;
 
         $first->expects($this->once())
             ->method('send')

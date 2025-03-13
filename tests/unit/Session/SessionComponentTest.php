@@ -86,7 +86,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
         $connection = $this->createMock('Ratchet\\ConnectionInterface');
 
         $headers = $this->createMock('Psr\Http\Message\RequestInterface');
-        $headers->expects($this->once())->method('getHeader')->will($this->returnValue([ini_get('session.name') . "={$sessionId};"]));
+        $headers->expects($this->once())->method('getHeader')->willReturn([ini_get('session.name') . "={$sessionId};"]);
 
         $component->onOpen($connection, $headers);
 
@@ -97,7 +97,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
         $conn = $this->createMock('Ratchet\ConnectionInterface');
 
         $headers = $this->getMock('Psr\Http\Message\Request', array('getCookie'), array('POST', '/', array()));
-        $headers->expects($this->once())->method('getCookie', array(ini_get('session.name')))->will($this->returnValue(null));
+        $headers->expects($this->once())->method('getCookie', array(ini_get('session.name')))->willReturn(null);
 
         return $conn;
     }
@@ -120,7 +120,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
 
     protected function doOpen($conn) {
         $request = $this->createMock('Psr\Http\Message\RequestInterface');
-        $request->expects($this->any())->method('getHeader')->will($this->returnValue([]));
+        $request->expects($this->any())->method('getHeader')->willReturn([]);
 
         $this->_serv->onOpen($conn, $request);
     }
