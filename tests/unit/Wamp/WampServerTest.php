@@ -2,10 +2,9 @@
 namespace Ratchet\Wamp;
 use Ratchet\AbstractMessageComponentTestCase;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Wamp\WampServer
- */
+#[CoversClass(WampServer::class)]
 class WampServerTest extends AbstractMessageComponentTestCase {
     public function getConnectionClassString() {
         return '\Ratchet\Wamp\WampConnection';

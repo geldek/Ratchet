@@ -1,10 +1,9 @@
 <?php
 namespace Ratchet\Http;
 use Ratchet\AbstractMessageComponentTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Http\OriginCheck
- */
+#[CoversClass(OriginCheck::class)]
 class OriginCheckTest extends AbstractMessageComponentTestCase {
     protected $_reqStub;
 

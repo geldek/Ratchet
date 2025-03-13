@@ -3,12 +3,13 @@ namespace Ratchet\Session;
 use Ratchet\AbstractMessageComponentTestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
+use Ratchet\Session\Storage\VirtualSessionStorage;
+use Ratchet\Session\Storage\Proxy\VirtualProxy;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Session\SessionProvider
- * @covers Ratchet\Session\Storage\VirtualSessionStorage
- * @covers Ratchet\Session\Storage\Proxy\VirtualProxy
- */
+#[CoversClass(SessionProvider::class)]
+#[CoversClass(VirtualSessionStorage::class)]
+#[CoversClass(VirtualProxy::class)]
 class SessionComponentTest extends AbstractMessageComponentTestCase {
     public function setUp(): void {
         $this->markTestIncomplete('Test needs to be updated for ini_set issue in PHP 7.2');

@@ -5,10 +5,9 @@ use React\EventLoop\StreamSelectLoop;
 use React\EventLoop\LoopInterface;
 use React\Socket\Server;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Server\IoServer
- */
+#[CoversClass(IoServer::class)]
 class IoServerTest extends TestCase {
     protected $server;
 

@@ -2,10 +2,9 @@
 namespace Ratchet\Wamp;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Wamp\WampConnection
- */
+#[CoversClass(WampConnection::class)]
 class WampConnectionTest extends TestCase {
     protected $conn;
     protected $mock;

@@ -2,10 +2,9 @@
 namespace Ratchet\Session\Serialize;
 use Ratchet\Session\Serialize\PhpHandler;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Session\Serialize\PhpHandler
- */
+#[CoversClass(PhpHandler::class)]
 class PhpHandlerTest extends TestCase {
     protected $_handler;
 

@@ -8,10 +8,9 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Http\Router
- */
+#[CoversClass(Router::class)]
 class RouterTest extends TestCase {
     protected $_router;
     protected $_matcher;
@@ -36,11 +35,13 @@ class RouterTest extends TestCase {
 
         $this->_uri->expects($this->any())->method('getPath')->will($this->returnValue('ws://doesnt.matter/'));
         $this->_uri->expects($this->any())->method('withQuery')->with($this->callback(function($val) {
-            $this->setResult($val);
+            $this->result($val);
 
             return true;
         }))->will($this->returnSelf());
-        $this->_uri->expects($this->any())->method('getQuery')->will($this->returnCallback([$this, 'getResult']));
+        $this->_uri->expects($this->any())->method('getQuery')->will($this->returnCallback(function() {
+            $this->result();
+        }));
         $this->_req->expects($this->any())->method('withUri')->will($this->returnSelf());
     }
 

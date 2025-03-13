@@ -1,10 +1,9 @@
 <?php
 namespace Ratchet\Http;
 use Ratchet\AbstractMessageComponentTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Http\HttpServer
- */
+#[CoversClass(HttpServer::class)]
 class HttpServerTest extends AbstractMessageComponentTestCase {
     public function setUp(): void {
         parent::setUp();

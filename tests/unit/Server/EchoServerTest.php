@@ -2,9 +2,9 @@
 namespace Ratchet\Server;
 use Ratchet\Server\EchoServer;
 use PHPUnit\Framework\TestCase;
-/**
- * @covers Ratchet\Server\EchoServer
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass(EchoServer::class)]
 class EchoServerTest extends TestCase {
     protected $_conn;
     protected $_comp;

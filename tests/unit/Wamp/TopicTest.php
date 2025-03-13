@@ -2,10 +2,9 @@
 namespace Ratchet\Wamp;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Wamp\Topic
- */
+#[CoversClass(Topic::class)]
 class TopicTest extends TestCase {
     public function testGetId() {
         $id    = uniqid();

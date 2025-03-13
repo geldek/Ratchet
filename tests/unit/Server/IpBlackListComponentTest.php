@@ -2,10 +2,9 @@
 namespace Ratchet\Server;
 use Ratchet\Server\IpBlackList;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Server\IpBlackList
- */
+#[CoversClass(IpBlackList::class)]
 class IpBlackListComponentTest extends TestCase {
     protected $blocker;
     protected $mock;

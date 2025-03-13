@@ -2,10 +2,9 @@
 namespace Ratchet\Wamp;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\Wamp\TopicManager
- */
+#[CoversClass(TopicManager::class)]
 class TopicManagerTest extends TestCase {
     private $mock;
 

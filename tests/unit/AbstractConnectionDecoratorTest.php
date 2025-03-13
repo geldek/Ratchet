@@ -2,12 +2,11 @@
 namespace Ratchet;
 use Ratchet\Mock\ConnectionDecorator;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error\Error;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers Ratchet\AbstractConnectionDecorator
- * @covers Ratchet\ConnectionInterface
- */
+#[CoversClass(AbstractConnectionDecorator::class)]
+#[CoversClass(ConnectionInterface::class)]
 class AbstractConnectionDecoratorTest extends TestCase {
     protected $mock;
     protected $l1;
@@ -133,17 +132,17 @@ class AbstractConnectionDecoratorTest extends TestCase {
     }
 
     public function testWarningGettingNothing() {
-        $this->expectException(Error::class);
+        $this->expectException(Exception::class);
         $var = $this->mock->nonExistant;
     }
 
     public function testWarningGettingNothingLevel1() {
-        $this->expectException(Error::class);
+        $this->expectException(Exception::class);
         $var = $this->l1->nonExistant;
     }
 
     public function testWarningGettingNothingLevel2() {
-        $this->expectException(Error::class);
+        $this->expectException(Exception::class);
         $var = $this->l2->nonExistant;
     }
 }

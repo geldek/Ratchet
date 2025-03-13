@@ -2,9 +2,9 @@
 namespace Ratchet\Http;
 
 use PHPUnit\Framework\TestCase;
-/**
- * @covers Ratchet\Http\HttpRequestParser
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass(HttpRequestParser::class)]
 class HttpRequestParserTest extends TestCase {
     protected $parser;
 
