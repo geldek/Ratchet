@@ -29,7 +29,7 @@ class Component implements MessageComponentInterface, WsServerInterface {
         $this->last[__FUNCTION__] = func_get_args();
     }
 
-    public function getSubProtocols() {
+    public function getSubProtocols(): array {
         return $this->protocols;
     }
 }

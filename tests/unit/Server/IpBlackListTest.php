@@ -1,17 +1,16 @@
 <?php
 namespace Ratchet\Server;
 use Ratchet\Server\IpBlackList;
-use \PHPUnit\Framework\TestCase;
 
 /**
  * @covers Ratchet\Server\IpBlackList
  */
-class IpBlackListTest extends TestCase {
+class IpBlackListTest extends \PHPUnit_Framework_TestCase {
     protected $blocker;
     protected $mock;
 
     protected function setUp(): void {
-        $this->mock = $this->createMock('\\Ratchet\\MessageComponentInterface');
+        $this->mock = $this->getMock('\\Ratchet\\MessageComponentInterface');
         $this->blocker = new IpBlackList($this->mock);
     }
 
@@ -118,7 +117,7 @@ class IpBlackListTest extends TestCase {
     }
 
     protected function newConn() {
-        $conn = $this->createMock('\\Ratchet\\ConnectionInterface');
+        $conn = $this->getMock('\\Ratchet\\ConnectionInterface');
         $conn->remoteAddress = '127.0.0.1';
 
         return $conn;

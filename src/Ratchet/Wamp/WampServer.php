@@ -61,7 +61,7 @@ class WampServer implements MessageComponentInterface, WsServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function getSubProtocols() {
+    public function getSubProtocols(): array {
         return $this->wampProtocol->getSubProtocols();
     }
 }

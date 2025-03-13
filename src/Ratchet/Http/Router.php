@@ -36,7 +36,8 @@ class Router implements HttpServerInterface {
         $uri = $request->getUri();
 
         $context = $this->_matcher->getContext();
-        $context->setMethod($request->getMethod());
+        $method = $request->getMethod();
+        $context->setMethod($method);
         $context->setHost($uri->getHost());
 
         try {
@@ -61,7 +62,8 @@ class Router implements HttpServerInterface {
                 $parameters[$key] = $value;
             }
         }
-        $parameters = array_merge($parameters, Query::parse($uri->getQuery() ?: ''));
+        $q = $uri->getQuery();
+        $parameters = array_merge($parameters, Query::parse($q ?: ''));
 
         $request = $request->withUri($uri->withQuery(Query::build($parameters)));
 

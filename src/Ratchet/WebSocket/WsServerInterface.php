@@ -10,5 +10,5 @@ interface WsServerInterface {
      * @return array
      * @todo This method may be removed in future version (note that will not break code, just make some code obsolete)
      */
-    function getSubProtocols();
+    function getSubProtocols(): array;
 }
