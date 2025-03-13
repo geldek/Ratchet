@@ -113,7 +113,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
         }
 
         ini_set('session.serialize_handler', 'wddx');
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         new SessionProvider($this->getMock($this->getComponentClassString()), $this->getMock('\SessionHandlerInterface'));
     }
 

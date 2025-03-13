@@ -4,11 +4,12 @@ use Ratchet\Server\IoServer;
 use React\EventLoop\StreamSelectLoop;
 use React\EventLoop\LoopInterface;
 use React\Socket\Server;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Ratchet\Server\IoServer
  */
-class IoServerTest extends \PHPUnit_Framework_TestCase {
+class IoServerTest extends TestCase {
     protected $server;
 
     protected $app;
@@ -25,8 +26,8 @@ class IoServerTest extends \PHPUnit_Framework_TestCase {
         $loop->run();
     }
 
-    public function setUp() {
-        $this->app = $this->getMock('\\Ratchet\\MessageComponentInterface');
+    public function setUp(): void {
+        $this->app = $this->createMock('\\Ratchet\\MessageComponentInterface');
 
         $loop = new StreamSelectLoop;
         $this->reactor = new Server(0, $loop);
@@ -96,15 +97,15 @@ class IoServerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNoLoopProvidedError() {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $io   = new IoServer($this->app, $this->reactor);
         $io->run();
     }
 
     public function testOnErrorPassesException() {
-        $conn = $this->getMock('\\React\\Socket\\ConnectionInterface');
-        $conn->decor = $this->getMock('\\Ratchet\\ConnectionInterface');
+        $conn = $this->createMock('\\React\\Socket\\ConnectionInterface');
+        $conn->decor = $this->createMock('\\Ratchet\\ConnectionInterface');
         $err  = new \Exception("Nope");
 
         $this->app->expects($this->once())->method('onError')->with($conn->decor, $err);
@@ -115,7 +116,7 @@ class IoServerTest extends \PHPUnit_Framework_TestCase {
     public function onErrorCalledWhenExceptionThrown() {
         $this->markTestIncomplete("Need to learn how to throw an exception from a mock");
 
-        $conn = $this->getMock('\\React\\Socket\\ConnectionInterface');
+        $conn = $this->createMock('\\React\\Socket\\ConnectionInterface');
         $this->server->handleConnect($conn);
 
         $e = new \Exception;
